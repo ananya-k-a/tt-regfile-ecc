@@ -1,5 +1,5 @@
 // regfile_ecc_hk.v
-// Wrapper connecting regfile_ecc (NUM_REG=1) to the housekeeping SPI
+// Wrapper connecting regfile_ecc (NUM_REG=2) to the housekeeping SPI
 // control/status interface. Only read port 1 is exposed over SPI.
 
 `default_nettype none
@@ -44,13 +44,13 @@ module regfile_ecc_hk (
     );
 
     regfile_ecc #(
-        .NUM_REG(1)
+        .NUM_REG(2)
     ) dut (
         .clk(clk),
         .we(control[0]),
-        .waddr(1'b0),
+        .waddr(control[1]),
         .wdata(control[39:8]),
-        .raddr1(1'b0),
+        .raddr1(control[2]),
         .raddr2(1'b0),
         .data_error_mask1(control[71:40]),
         .chk_error_mask1(control[78:72]),
